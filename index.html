@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار أخلاقيات ومبادئ السياحة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .option-btn {
+            transition: all 0.3s ease;
+        }
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+        .correct-answer {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46 !important;
+        }
+        .wrong-answer {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-blue-800 text-white py-6 shadow-md text-center shrink-0">
+        <h1 class="text-3xl font-bold mb-2">اختبار أخلاقيات ومبادئ السياحة</h1>
+        <p class="text-blue-200 text-lg">بناءً على مبادئ مدونة آداب السياحة العالمية</p>
+        <div class="mt-4 inline-block bg-blue-700 px-4 py-1 rounded-full text-sm font-medium border border-blue-500">
+            إعداد: قيس جازي
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-4xl">
+        
+        <!-- Score Board -->
+        <div class="bg-white rounded-xl shadow-sm p-4 mb-8 flex justify-between items-center border border-gray-100 sticky top-4 z-10">
+            <div class="text-lg font-bold text-gray-700">النتيجة: <span id="score" class="text-blue-600 text-2xl">0</span> / 15</div>
+            <div class="text-sm text-gray-500">أجب عن جميع الأسئلة لمعرفة تقييمك</div>
+        </div>
+
+        <!-- Questions Container -->
+        <div id="quiz-container" class="space-y-8">
+            <!-- Questions will be injected here by JavaScript -->
+        </div>
+
+        <!-- Completion Message -->
+        <div id="completion-message" class="hidden bg-green-50 border-2 border-green-500 rounded-xl p-8 text-center mt-8 fade-in">
+            <h2 class="text-3xl font-bold text-green-700 mb-4">أحسنت! لقد أنهيت الاختبار</h2>
+            <p class="text-lg text-green-800 mb-4">نتيجتك النهائية هي: <span id="final-score" class="font-bold text-2xl"></span> من 15</p>
+            <button onclick="location.reload()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
+                إعادة الاختبار
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 text-center mt-auto">
+        <p class="text-gray-300">جميع الحقوق محفوظة &copy; 2026</p>
+        <p class="text-sm text-gray-400 mt-2 font-bold">تصميم وإعداد: قيس جازي</p>
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                question: "Based on tourism principles, what should tourism promote?",
+                options: [
+                    "Economic exploitation of host resources",
+                    "Respect and tolerance between cultures and religions",
+                    "Imposing the tourist's culture on the local community",
+                    "Ignoring local customs and traditions"
+                ],
+                correct: 1,
+                explanation: "Tourism is a global means of communication; it should contribute to building bridges of respect and tolerance between different cultures and religions and eliminating prejudice."
+            },
+            {
+                question: "What is the correct attitude for tourism activities towards the host country?",
+                options: [
+                    "Ignoring local laws to facilitate tourism",
+                    "Changing local customs to suit tourists' comfort",
+                    "Respecting the traditions and laws of the host country",
+                    "Focusing only on financial profits"
+                ],
+                correct: 2,
+                explanation: "Tourism activities must fully comply with the traditions and laws of the host country to ensure sustainable tourism and community acceptance."
+            },
+            {
+                question: "How should the relationship between the tourist and the host community be?",
+                options: [
+                    "A purely commercial and material relationship",
+                    "Complete isolation of the tourist from the community",
+                    "The community's subordination to the tourist",
+                    "Mutual respect and understanding of different lifestyles"
+                ],
+                correct: 3,
+                explanation: "Mutual respect and understanding of differences in lifestyles ensure a positive and enriching tourism experience for both parties."
+            },
+            {
+                question: "Who is primarily responsible for protecting tourists and ensuring their safety?",
+                options: [
+                    "Tourism companies only",
+                    "Governments of the host country",
+                    "The accompanying tour guide",
+                    "The tourist alone"
+                ],
+                correct: 1,
+                explanation: "Governments bear the greatest responsibility in providing security, enforcing laws, and providing safe infrastructure to protect visitors."
+            },
+            {
+                question: "What must tourists strictly avoid while in a tourist destination?",
+                options: [
+                    "Trying popular local food",
+                    "Interacting with locals",
+                    "Illegal activities",
+                    "Visiting religious and historical sites"
+                ],
+                correct: 2,
+                explanation: "Tourists must strictly adhere to the laws of the host country and avoid any illegal activities."
+            },
+            {
+                question: "What is the best action a tourist should take before traveling to a new destination?",
+                options: [
+                    "Traveling randomly without prior planning",
+                    "Ignoring official warnings to seek adventure",
+                    "Packing luggage without reading about the country",
+                    "Learning about the destination and understanding potential risks"
+                ],
+                correct: 3,
+                explanation: "Prior knowledge of the destination (its culture, laws, risks) helps the tourist avoid problems and take necessary precautions."
+            },
+            {
+                question: "If the host country's laws conflict with the tourist's personal habits, what should they do?",
+                options: [
+                    "Follow their personal habits because it's their right",
+                    "Respect and abide by the host country's laws",
+                    "Publicly protest local laws",
+                    "Ask for a special exception"
+                ],
+                correct: 1,
+                explanation: "The tourist is obligated to respect the sovereignty and laws of the visited country, regardless of how they differ from their own habits."
+            },
+            {
+                question: "Why is understanding the lifestyle of others important in the tourism sector?",
+                options: [
+                    "To prevent cultural conflicts and build communication bridges",
+                    "To blindly imitate them",
+                    "To prove the superiority of the tourist's culture",
+                    "It has no significant importance"
+                ],
+                correct: 0,
+                explanation: "Mutual understanding removes prejudices and stereotypes, making the tourism experience a means for peace."
+            },
+            {
+                question: "What is the tourist's role when visiting religious sites in the host country?",
+                options: [
+                    "Random photography without permission",
+                    "Ignoring dress codes",
+                    "Showing respect, tolerance, and avoiding offense",
+                    "Practicing their own rituals loudly"
+                ],
+                correct: 2,
+                explanation: "Places of worship have their own sanctity, and the tourist must respect them based on the principle of religious tolerance."
+            },
+            {
+                question: "Does the ethical responsibility for the success of a tourist trip fall on one party?",
+                options: [
+                    "Yes, only on the tourist because they pay",
+                    "Yes, only on the host community because they benefit",
+                    "No, it is a shared responsibility requiring mutual respect",
+                    "Yes, only on the government"
+                ],
+                correct: 2,
+                explanation: "Sustainable tourism success depends on cooperation, understanding, and mutual respect among all parties: tourists, local communities, and governments."
+            },
+            {
+                question: "What does the concept of 'learning about the destination before traveling' include?",
+                options: [
+                    "Knowing only the names of luxury hotels",
+                    "Awareness of culture, laws, and health/security risks",
+                    "Memorizing the geographical map",
+                    "Only booking flight tickets"
+                ],
+                correct: 1,
+                explanation: "Comprehensive preparation includes full awareness of the cultural, legal, and security environment to ensure a trouble-free trip."
+            },
+            {
+                question: "What is the primary goal of requiring tourism activities to respect traditions?",
+                options: [
+                    "Restricting the tourist's freedom",
+                    "Increasing the financial cost of the trip",
+                    "Reducing the number of arriving tourists",
+                    "Preserving the cultural identity of the host community"
+                ],
+                correct: 3,
+                explanation: "Sustainable and ethical tourism seeks to preserve the authenticity of local heritage and protect it from distortion."
+            },
+            {
+                question: "If a tourist faces an emergency, who is primarily obligated to provide protection?",
+                options: [
+                    "Their country's embassy only",
+                    "The host country's government and its security apparatus",
+                    "The airline they traveled with",
+                    "The hotel management"
+                ],
+                correct: 1,
+                explanation: "Host governments are sovereignly responsible for protecting everyone on their territory, including tourists."
+            },
+            {
+                question: "How can the tourism sector be an effective tool for global peace?",
+                options: [
+                    "By promoting tolerance and understanding between peoples",
+                    "Through complete isolation between different cultures",
+                    "Through economic competition",
+                    "By imposing strict travel laws"
+                ],
+                correct: 0,
+                explanation: "Direct and positive communication between peoples through tourism reduces prejudice and builds peace."
+            },
+            {
+                question: "Which of the following actions violates the principle of 'respecting laws'?",
+                options: [
+                    "Buying souvenirs from local markets",
+                    "Buying smuggled artifacts or banned substances",
+                    "Renting a tourist car",
+                    "Taking photos in permitted places"
+                ],
+                correct: 1,
+                explanation: "Trafficking in smuggled antiquities or buying banned substances is illegal and blatantly violates the host country's laws."
+            }
+        ];
+
+        let currentScore = 0;
+        let answeredQuestions = 0;
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            
+            quizData.forEach((item, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.className = 'bg-white rounded-xl shadow-md p-6 border border-gray-200';
+                // تم إضافة dir="ltr" لعرض النص الإنجليزي من اليسار لليمين
+                questionBlock.setAttribute('dir', 'ltr'); 
+                questionBlock.id = `question-block-${index}`;
+                
+                // Question text
+                const questionText = document.createElement('h3');
+                questionText.className = 'text-xl font-bold text-gray-800 mb-4 text-left';
+                questionText.innerHTML = `<span class="text-blue-600 mr-2">${index + 1}.</span> ${item.question}`;
+                questionBlock.appendChild(questionText);
+
+                // Options grid
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+                
+                item.options.forEach((opt, optIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn w-full text-left p-4 rounded-lg border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 font-medium text-gray-700';
+                    btn.innerText = opt;
+                    btn.onclick = () => handleAnswer(index, optIndex, btn);
+                    optionsGrid.appendChild(btn);
+                });
+                
+                questionBlock.appendChild(optionsGrid);
+
+                // Explanation Block (hidden initially)
+                const explanationBlock = document.createElement('div');
+                explanationBlock.id = `explanation-${index}`;
+                explanationBlock.className = 'hidden mt-6 p-4 rounded-lg bg-gray-50 border-l-4 text-gray-700 fade-in text-left';
+                questionBlock.appendChild(explanationBlock);
+
+                container.appendChild(questionBlock);
+            });
+        }
+
+        function handleAnswer(questionIndex, selectedOptionIndex, clickedBtn) {
+            const questionData = quizData[questionIndex];
+            const block = document.getElementById(`question-block-${questionIndex}`);
+            const buttons = block.querySelectorAll('button');
+            const explanationBlock = document.getElementById(`explanation-${questionIndex}`);
+
+            // Disable all buttons in this question
+            buttons.forEach(btn => btn.disabled = true);
+
+            const isCorrect = selectedOptionIndex === questionData.correct;
+
+            // Highlight answers
+            buttons.forEach((btn, idx) => {
+                if (idx === questionData.correct) {
+                    btn.classList.add('correct-answer');
+                    // Add checkmark icon to correct answer
+                    btn.innerHTML += ' <svg class="inline-block w-6 h-6 ml-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                } else if (idx === selectedOptionIndex && !isCorrect) {
+                    btn.classList.add('wrong-answer');
+                    // Add X icon to wrong selected answer
+                    btn.innerHTML += ' <svg class="inline-block w-6 h-6 ml-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                }
+            });
+
+            // Update Score
+            if (isCorrect) {
+                currentScore++;
+                document.getElementById('score').innerText = currentScore;
+            }
+
+            // Show Explanation
+            explanationBlock.classList.remove('hidden');
+            if (isCorrect) {
+                explanationBlock.classList.add('border-green-500', 'bg-green-50');
+                explanationBlock.innerHTML = `<h4 class="font-bold text-green-700 mb-2">Correct!</h4><p>${questionData.explanation}</p>`;
+            } else {
+                explanationBlock.classList.add('border-red-500', 'bg-red-50');
+                explanationBlock.innerHTML = `<h4 class="font-bold text-red-700 mb-2">Incorrect!</h4><p><span class="font-bold">Explanation: </span>${questionData.explanation}</p>`;
+            }
+
+            // Check if quiz completed
+            answeredQuestions++;
+            if (answeredQuestions === quizData.length) {
+                showCompletionMessage();
+            }
+        }
+
+        function showCompletionMessage() {
+            const completionMsg = document.getElementById('completion-message');
+            document.getElementById('final-score').innerText = currentScore;
+            completionMsg.classList.remove('hidden');
+            
+            // Scroll to bottom smoothly
+            setTimeout(() => {
+                completionMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        }
+
+        // Initialize quiz on load
+        window.onload = renderQuiz;
+
+    </script>
+</body>
+</html>
+
+
